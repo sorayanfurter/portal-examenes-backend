@@ -1,6 +1,7 @@
 package com.sistema.examenes.servicios.impl;
 
 import com.sistema.examenes.entidades.Categoria;
+import com.sistema.examenes.excepciones.ResourceNotFoundException;
 import com.sistema.examenes.repositorios.CategoriaRepository;
 import com.sistema.examenes.servicios.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @Service
 
-public class CategoriaServiceImpl implements CategoriaService {
+public class  CategoriaServiceImpl implements CategoriaService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
@@ -33,7 +34,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Categoria obtenerCategoria(Long categoriaId) {
-        return categoriaRepository.findById(categoriaId).get();
+        return categoriaRepository.findById(categoriaId).orElseThrow(()-> new ResourceNotFoundException("Categoría", "Id", categoriaId));
     }
 
     @Override

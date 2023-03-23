@@ -1,14 +1,19 @@
 package com.sistema.examenes.servicios.impl;
 
+import com.sistema.examenes.entidades.Rol;
 import com.sistema.examenes.entidades.Usuario;
 import com.sistema.examenes.entidades.UsuarioRol;
+import com.sistema.examenes.excepciones.InvalidRequestException;
 import com.sistema.examenes.excepciones.UsuarioFoundException;
+import com.sistema.examenes.excepciones.UsuarioNotFoundException;
 import com.sistema.examenes.repositorios.RolRepository;
 import com.sistema.examenes.repositorios.UsuarioRepository;
 import com.sistema.examenes.servicios.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -19,25 +24,41 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private RolRepository rolRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     @Override
-    public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) throws Exception {
+    public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) throws RuntimeException {
+
+        usuario.setPerfil("default.png");
+        usuario.setPassword(this.bCryptPasswordEncoder.encode(usuario.getPassword()));
+
         Usuario usuarioLocal = usuarioRepository.findByUsername(usuario.getUsername());
         if(usuarioLocal!=null){
             System.out.println("El usuario ya existe");
-            throw new UsuarioFoundException("El usuario ya esta presente");
+            throw new UsuarioFoundException("Nombre de Usuario no disponible, ingrese uno nuevo");
         }
         else {
             for (UsuarioRol usuarioRol : usuarioRoles) {
+                usuarioRol.setUsuario(usuario);
+                usuarioRol.setRol(new Rol());
+                Rol rol = new Rol();
+                rol.setRolId(2L);
+                rol.setRolNombre("NORMAL");
+                usuarioRoles.add(usuarioRol);
                 rolRepository.save(usuarioRol.getRol());
-             }
-        usuario.getUsuarioRoles().addAll(usuarioRoles);
-        usuarioLocal = usuarioRepository.save(usuario);
+            }
+            usuario.getUsuarioRoles().addAll(usuarioRoles);
+            usuarioLocal = usuarioRepository.save(usuario);
+        }
+        return usuarioLocal;
     }
-    return usuarioLocal;
-    }
-
     @Override
     public Usuario obtenerUsuario(String username) {
+        if(username==null){
+            throw new UsuarioNotFoundException("Nombre de usuario inexistente");
+        }else
         return usuarioRepository.findByUsername(username);
     }
 

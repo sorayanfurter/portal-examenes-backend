@@ -2,6 +2,7 @@ package com.sistema.examenes.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -14,7 +15,9 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoriaId;
+    @NotNull(message= "Debe ingresar un título")
     private String titulo;
+    @NotNull(message= "Debe ingresar una descripción")
     private String descripcion;
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @JsonIgnore

@@ -14,7 +14,9 @@ Set<Pregunta> obtenerPreguntas();
 
 Pregunta obtenerPregunta(Long preguntaId);
 
-Set<Pregunta> obetenerPreguntasDelExamen(Examen examen);
+Set<Pregunta> obtenerPreguntasDelExamen(Examen examen);
 
 void eliminarPregunta(Long examenId);
+
+Pregunta listarPregunta(Long preguntaId);
 }

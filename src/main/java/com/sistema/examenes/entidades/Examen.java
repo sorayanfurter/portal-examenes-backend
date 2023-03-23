@@ -2,6 +2,8 @@ package com.sistema.examenes.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,9 +14,13 @@ public class Examen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long examenId;
+    @NotNull(message= "Debe ingresar un título")
     private String titulo;
+    @NotNull(message= "Debe ingresar una descripción")
     private String descripcion;
+    @NotNull(message= "Debe ingresar la cantidad de puntos máximos")
     private String puntosMaximos;
+    @NotNull(message= "Debe ingresar la cantidad de preguntas")
     private String numeroDePreguntas;
     private boolean activo= false;
 

@@ -24,8 +24,6 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaExamenesBackendApplication.class, args);

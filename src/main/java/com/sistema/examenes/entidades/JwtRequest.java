@@ -1,5 +1,9 @@
 package com.sistema.examenes.entidades;
 
+import lombok.Data;
+
+@Data
+
 public class JwtRequest {
     private String username;
     private String password;

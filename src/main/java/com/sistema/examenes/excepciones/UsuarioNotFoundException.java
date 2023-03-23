@@ -1,13 +1,18 @@
 package com.sistema.examenes.excepciones;
 
-public class UsuarioNotFoundException extends Exception {
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public UsuarioNotFoundException(){
-        super("El usuario con ese username no existe en la base de datos, vuelva a intentarlo.");
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class UsuarioNotFoundException extends RuntimeException {
+
+
+    public UsuarioNotFoundException(String message) {
+        super(message);
     }
 
-    public UsuarioNotFoundException(String mensaje){
-        super(mensaje);
-    }
+
 
 }

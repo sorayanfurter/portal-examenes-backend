@@ -4,6 +4,7 @@ import com.sistema.examenes.entidades.Rol;
 import com.sistema.examenes.entidades.Usuario;
 import com.sistema.examenes.entidades.UsuarioRol;
 import com.sistema.examenes.servicios.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -23,21 +24,8 @@ public class UsuarioController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/")
-    public Usuario guardarUsuario(@RequestBody Usuario usuario) throws Exception{
-        usuario.setPerfil("default.png");
-
-        usuario.setPassword(this.bCryptPasswordEncoder.encode(usuario.getPassword()));
-
+    public Usuario guardarUsuario(@RequestBody @Valid Usuario usuario){
         Set<UsuarioRol> usuarioRoles= new HashSet<>();
-        Rol rol = new Rol();
-        rol.setRolId(2L);
-        rol.setRolNombre("NORMAL");
-
-        UsuarioRol usuarioRol  = new UsuarioRol();
-        usuarioRol.setUsuario(usuario);
-        usuarioRol.setRol(rol);
-
-        usuarioRoles.add(usuarioRol);
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
 
     }

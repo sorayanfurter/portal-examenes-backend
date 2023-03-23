@@ -2,21 +2,21 @@ package com.sistema.examenes.entidades;
 
 public class JwtResponse {
 
-    private String token;
+    private String jwtToken;
 
     public JwtResponse(){
 
     }
 
     public JwtResponse(String token) {
-        this.token = token;
+        this.jwtToken = token;
     }
 
     public String getToken() {
-        return token;
+        return jwtToken;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.jwtToken = token;
     }
 }

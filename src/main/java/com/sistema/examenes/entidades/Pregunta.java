@@ -1,6 +1,7 @@
 package com.sistema.examenes.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "preguntas")
@@ -8,13 +9,21 @@ public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preguntaId;
+    @NotNull(message= "Debe ingresar una pregunta")
     @Column(length = 5000)
     private String contenido;
     private String imagen;
+    @NotNull(message= "Debe ingresar una respuesta para la opción 1")
     private String opcion1;
+    @NotNull(message= "Debe ingresar una respuesta para la opción 2")
     private String opcion2;
+    @NotNull(message= "Debe ingresar una respuesta para la opción 3")
     private String opcion3;
+    @NotNull(message= "Debe ingresar una respuesta para la opción 4")
     private String opcion4;
+    @Transient
+    private String respuestaDada;
+    @NotNull(message = "Debe seleccionar una respuesta correcta")
     private String respuesta;
 
     @ManyToOne (fetch = FetchType.EAGER)
@@ -74,6 +83,14 @@ public class Pregunta {
 
     public void setOpcion4(String opcion4) {
         this.opcion4 = opcion4;
+    }
+
+    public String getRespuestaDada() {
+        return respuestaDada;
+    }
+
+    public void setRespuestaDada(String respuestaDada) {
+        this.respuestaDada = respuestaDada;
     }
 
     public String getRespuesta() {

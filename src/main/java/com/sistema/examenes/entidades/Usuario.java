@@ -2,6 +2,9 @@ package com.sistema.examenes.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,10 +20,15 @@ public class     Usuario implements UserDetails {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Username no puede estar vacío")
     private String username;
+    @NotNull(message = "Debe ingresar su password")
     private String password;
+    @NotNull(message = "Debe ingresar su nombre")
     private String nombre;
+    @NotNull(message = "Debe ingresar un apellido")
     private String apellido;
+    @Email (message = "Ingrese un email válido")
     private String email;
     private String telefono;
     private boolean enabled = true;

@@ -1,10 +1,10 @@
 package com.sistema.examenes.controladores;
 
+import com.sistema.examenes.configuraciones.AuthenticationService;
 import com.sistema.examenes.configuraciones.JwtUtils;
 import com.sistema.examenes.entidades.JwtRequest;
 import com.sistema.examenes.entidades.JwtResponse;
 import com.sistema.examenes.entidades.Usuario;
-import com.sistema.examenes.excepciones.UsuarioNotFoundException;
 import com.sistema.examenes.servicios.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,6 +19,9 @@ import java.security.Principal;
 @RestController
 @CrossOrigin("*")
 public class AuthenticationController {
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -31,18 +33,11 @@ public class AuthenticationController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/generate-token")
-    public ResponseEntity<?> generarToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-        try{
-            autenticar(jwtRequest.getUsername(),jwtRequest.getPassword());
-        }catch (UsuarioNotFoundException exception){
-            exception.printStackTrace();
-            throw new Exception("Usuario no encontrado");
+
+        public ResponseEntity<JwtResponse> autenticar(@RequestBody JwtRequest jwtRequest){
+            return ResponseEntity.ok(authenticationService.autenticar(jwtRequest));
         }
 
-        UserDetails userDetails =  this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
-        String token = this.jwtUtils.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
-    }
 
     private void autenticar(String username,String password) throws Exception {
         try{
