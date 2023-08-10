@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/examen")
-@CrossOrigin("*")
+@CrossOrigin("https://portal-examenes.web.app/")
 public class ExamenController {
 
     @Autowired
