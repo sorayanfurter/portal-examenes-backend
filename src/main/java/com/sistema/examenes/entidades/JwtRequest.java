@@ -1,8 +1,10 @@
 package com.sistema.examenes.entidades;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Data
+@CrossOrigin("https://portal-examenes.web.app/")
 
 public class JwtRequest {
     private String username;
