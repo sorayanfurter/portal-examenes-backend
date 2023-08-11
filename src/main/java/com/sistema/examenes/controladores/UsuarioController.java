@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping
 @CrossOrigin("https://portal-examenes.web.app")
 public class UsuarioController {
 
@@ -23,18 +23,18 @@ public class UsuarioController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/")
+    @PostMapping("/usuarios/")
     public Usuario guardarUsuario(@RequestBody @Valid Usuario usuario){
         Set<UsuarioRol> usuarioRoles= new HashSet<>();
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
 
     }
-    @GetMapping("/{username}")
+    @GetMapping("/usuarios/{username}")
     public Usuario obtenerUsuario(@PathVariable("username")String username){
         return usuarioService.obtenerUsuario(username);
     }
 
-    @DeleteMapping("/{usuarioId}")
+    @DeleteMapping("/usuarios/{usuarioId}")
     public void eliminarUsuario(@PathVariable("usuarioId")Long usuarioId){
         usuarioService.eliminarUsuario(usuarioId);
     }
