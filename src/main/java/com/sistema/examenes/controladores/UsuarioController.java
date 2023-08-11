@@ -14,7 +14,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("https://portal-examenes.web.app/")
+@CrossOrigin("https://portal-examenes.web.app")
 public class UsuarioController {
 
     @Autowired

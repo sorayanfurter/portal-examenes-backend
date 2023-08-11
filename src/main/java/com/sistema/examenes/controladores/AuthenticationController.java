@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin("https://portal-examenes.web.app/")
+@CrossOrigin("https://portal-examenes.web.app")
 public class AuthenticationController {
 
     @Autowired

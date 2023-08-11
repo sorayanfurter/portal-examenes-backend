@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/categoria")
-@CrossOrigin("https://portal-examenes.web.app/")
+@CrossOrigin("https://portal-examenes.web.app")
 
 public class CategoriaController {
 
