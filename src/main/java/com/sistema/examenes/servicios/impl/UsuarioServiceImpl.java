@@ -34,22 +34,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setPerfil("default.png");
         usuario.setPassword(this.bCryptPasswordEncoder.encode(usuario.getPassword()));
 
+
         Usuario usuarioLocal = usuarioRepository.findByUsername(usuario.getUsername());
         if(usuarioLocal!=null){
             System.out.println("El usuario ya existe");
             throw new UsuarioFoundException("Nombre de Usuario no disponible, ingrese uno nuevo");
-        }
-        else {
-            for (UsuarioRol usuarioRol : usuarioRoles) {
-                usuarioRol.setUsuario(usuario);
-                usuarioRol.setRol(new Rol());
-                Rol rol = new Rol();
-                rol.setRolId(2L);
-                rol.setRolNombre("NORMAL");
-                usuarioRoles.add(usuarioRol);
-                rolRepository.save(usuarioRol.getRol());
-            }
-            usuario.getUsuarioRoles().addAll(usuarioRoles);
+        }else{
             usuarioLocal = usuarioRepository.save(usuario);
         }
         return usuarioLocal;

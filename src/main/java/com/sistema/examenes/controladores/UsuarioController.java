@@ -26,8 +26,15 @@ public class UsuarioController {
     @PostMapping("/usuarios/")
     public Usuario guardarUsuario(@RequestBody @Valid Usuario usuario){
         Set<UsuarioRol> usuarioRoles= new HashSet<>();
-        return usuarioService.guardarUsuario(usuario, usuarioRoles);
+        Rol rol = new Rol();
+        rol.setRolId(2L);
+        rol.setRolNombre("NORMAL");
+        UsuarioRol usuarioRol = new UsuarioRol();
+        usuarioRol.setUsuario(usuario);
+        usuarioRol.setRol(rol);
 
+        usuarioRoles.add(usuarioRol);
+        return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
     @GetMapping("/usuarios/{username}")
     public Usuario obtenerUsuario(@PathVariable("username")String username){
