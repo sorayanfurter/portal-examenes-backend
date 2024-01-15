@@ -1,0 +1,1 @@
+This application was built using Angular and Java. Designed to create and take multiple-choice exams. Admins have the ability to: Create exams, add questions with their respective scoring, and organize exams into distinct categories. Set time constraints for users to respond. Users can participate in available examinations based on their permissions.
